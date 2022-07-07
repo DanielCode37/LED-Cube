@@ -44,6 +44,7 @@
 			box-shadow: 0 3px 9px #63636381, inset 0 0 9px white;
 			background-color: white;
 			color: black;
+			cursor: pointer;
 		}
 
 		#background {
@@ -65,16 +66,20 @@
 			background-color: #ffffff00;
 		}
 
-		.message {
+		#message {
 			position: fixed;
 			bottom: 2rem;
 			text-align: center;
 			left: 50vw;
-			transform: translate(-50%);
+			transform: translate(-50%) scale(0);
 			background-color: #ffffff7b;
 			padding: 0.8rem;
 			border-radius: 1rem;
 			width: fit-content;
+		}
+
+		#message.active {
+			transform: translate(-50%) scale(1);
 		}
 	</style>
 </head>
@@ -83,14 +88,46 @@
 	<div id="background"></div>
 	<div id="blur"></div>
 	<div id="content">
-		<h1>TEST TEST TEST ETS</h1>
+		<h1>Programme auswählen</h1>
 		<div class="buttons">
-			<button>Programm 1</button>
-			<button>Programm 2</button>
+			<button onclick="execute(0)">Programm 1</button>
+			<button onclick="execute(1)">Programm 2</button>
 		</div>
-		<div class="message">Bitte warten</div>
+		<div id="message">Bitte warten</div>
 	</div>
 
+	<script>
+		let nextStage = false;
+
+		init();
+
+		async function init() {
+			const programms = ["test"];
+			const list = document.getElementsByClassName("buttons")[0];
+
+			for (const programm of programms) {
+				list.insertAdjacentHTML("beforeend", `<button onClick="execute(${programms.indexOf(programm)})">${programm}</button>`);
+			}
+		}
+
+		async function execute(num) {
+			popup("Anfrage gesendet...", false);
+			// await fetch(location.origin + "/" + num);
+			await fetch("google.com");
+			popup("Programm wird ausgeführt...", true);
+		}
+
+		function popup(message, hideAfterTime) {
+			const element = document.getElementById("message");
+
+			element.classList.add("active");
+			element.innerText = message;
+
+			if (hideAfterTime) setTimeout(() => {
+				element.classList.remove("active");
+			}, 4000);
+		}
+	</script>
 </body>
 
 </html>
