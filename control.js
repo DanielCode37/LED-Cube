@@ -27,6 +27,41 @@ const GPIO = require("onoff").Gpio;
 // GPIO.26
 // GPIO.27
 
-const TEST = new GPIO(3, "out");
+// LAYERS
+const LAYERS = [
+	new GPIO(5, "out"),
+	new GPIO(6, "out"),
+	new GPIO(13, "out"),
+	new GPIO(19, "out"),
+]
+
+// COLUMNS
+const COLUMNS = [
+	[new GPIO(12, "out"), new GPIO(16, "out"), new GPIO(20, "out"), new GPIO(21, "out")],
+	[new GPIO(14, "out"), new GPIO(15, "out"), new GPIO(18, "out"), new GPIO(23, "out")],
+	[new GPIO(24, "out"), new GPIO(25, "out"), new GPIO(8, "out"), new GPIO(7, "out")],
+	[new GPIO(22, "out"), new GPIO(10, "out"), new GPIO(9, "out"), new GPIO(11, "out")],
+]
+
+// DATA
+const INPUT = {
+	speed: 1,
+	data: [
+		[
+			[0, 0, 0],
+			[1, 0, 0],
+		]
+	]
+}
+
+function execute() {
+
+}
+
+
+
 
 TEST.writeSync(0);
+KAm8tB9Cqw1eeKXLa7d4
+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
+
