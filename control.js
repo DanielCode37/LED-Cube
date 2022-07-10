@@ -62,6 +62,3 @@ function execute() {
 
 
 TEST.writeSync(0);
-KAm8tB9Cqw1eeKXLa7d4
-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
-
