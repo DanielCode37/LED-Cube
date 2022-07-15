@@ -54,8 +54,31 @@ const INPUT = {
 	]
 }
 
-function execute() {
+/**
+ * @param {{speed: number;data: number[][][];}} program 
+ */
+function execute(program) {
+	let i = 0;
+	const interval = setInterval(() => {
+		clearAll();
 
+		if (program.data[i] == undefined) clearInterval(interval);
+
+		for (const order of program.data[i]) {
+			LAYERS[order[0]].writeSync(1);
+			COLUMNS[order[1]][order[2]].writeSync(1);
+		}
+
+		i++;
+	}, 1000 / program.speed);
+}
+
+function clearAll() {
+	for (let x = 0; x < COLUMNS.length; x++) {
+		for (let z = 0; z < COLUMNS[x].length; z++) {
+			COLUMNS[x][z].writeSync(0);
+		}
+	}
 }
 
 
