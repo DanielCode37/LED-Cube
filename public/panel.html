@@ -113,7 +113,7 @@
 		async function execute(num) {
 			popup("Anfrage gesendet...", false);
 			// await fetch(location.origin + "/" + num);
-			await fetch("google.com");
+			await fetch(location.origin + "/trigger/" + num);
 			popup("Programm wird ausgeführt...", true);
 		}
 
@@ -125,7 +125,7 @@
 
 			if (hideAfterTime) setTimeout(() => {
 				element.classList.remove("active");
-			}, 4000);
+			}, 800);
 		}
 	</script>
 </body>

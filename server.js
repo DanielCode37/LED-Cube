@@ -1,4 +1,5 @@
 const express = require("express");
+const execute = require("./control.js")
 
 const app = express();
 const PORT = 3000;
@@ -11,6 +12,7 @@ app.get("/", async (req, res) => {
 
 app.get("/trigger/:num", async (req, res) => {
     console.log(req.params.num);
+    execute(req.params.num);
     res.send("started!");
 });
 

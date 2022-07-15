@@ -1,4 +1,5 @@
 const GPIO = require("onoff").Gpio;
+const fs = require("fs");
 
 // GPIO.2
 // GPIO.3
@@ -45,7 +46,7 @@ const COLUMNS = [
 
 // DATA
 const INPUT = {
-	speed: 1,
+	speed: 0.5,
 	data: [
 		[
 			[0, 0, 0],
@@ -54,15 +55,24 @@ const INPUT = {
 	]
 }
 
+function start(filename) {
+	execute(JSON.parse(fs.readFileSync(`./files/${filename}.json`, "utf-8")));
+}
+
+
 /**
- * @param {{speed: number;data: number[][][];}} program 
+ * @param {{speed: number;data: number[][][];repeat: boolean}} program 
  */
 function execute(program) {
 	let i = 0;
 	const interval = setInterval(() => {
 		clearAll();
 
-		if (program.data[i] == undefined) clearInterval(interval);
+		if (program.data[i] == undefined) {
+			clearInterval(interval);
+			if (program.repeat) return execute(program);
+			return;
+		}
 
 		for (const order of program.data[i]) {
 			LAYERS[order[0]].writeSync(1);
@@ -71,6 +81,7 @@ function execute(program) {
 
 		i++;
 	}, 1000 / program.speed);
+
 }
 
 function clearAll() {
@@ -81,7 +92,4 @@ function clearAll() {
 	}
 }
 
-
-
-
-TEST.writeSync(0);
+module.exports = start;

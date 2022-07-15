@@ -17,7 +17,7 @@ const COLUMNS = [
 ]
 
 function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise(resolve => setTimeout(resolve, ms / 5));
 }
 
 main();
@@ -63,4 +63,6 @@ async function main() {
 
 	COLUMNS[1][1].writeSync(0);
 	LAYERS[1].writeSync(0);
+
+	main();
 }
